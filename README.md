@@ -38,4 +38,5 @@ Todo o projeto será dividido em *sprints* com datas de duração variável de a
   - **_Policies e Governance_**: algumas ferramentas serão usados nessa camada.
     - Calculadora dos custos de manutenção de toda a arquitetura: AWS Pricing Calculator.
     - Monitoramento da Arquitetura: Amazon CloudWatch.
-    - 
+    - Controle de Acessos: AWS Secrets Manager.
+    - Versionamento, documentação e gerenciamento do projeto: Github.
