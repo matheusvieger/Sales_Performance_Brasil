@@ -134,7 +134,7 @@ Todo o projeto será dividido em *sprints* com datas de duração variável de a
 | order_delivered_customer_date | Mostra a data real de entrega do pedido ao cliente.                                            |
 | order_estimated_delivery_date | Mostra a data estimada de entrega que foi informada ao cliente no momento da compra.           |
 
-- Desenho da Arquitetura: foi desenvolvido uma arquitetura em lambda e sua representação foi feita via draw.io. O desenho segue: ![Arquitetura do Projeto](https://github.com/matheusvieger/Sales_Performance_Brasil/blob/main/Arquitetura_Stack_Ferramentas.png?raw=true)
+- Desenho da Arquitetura: foi desenvolvido uma arquitetura em lambda, um padrão de design popular para processamento de grandes volumes de dados, especialmente em aplicações de Big Data. Essa arquitetura combina o processamento em lote (batch) com o processamento em tempo real para oferecer uma visão completa e consistente dos dados. Sua representação foi feita via draw.io. O desenho segue: ![Arquitetura do Projeto](https://github.com/matheusvieger/Sales_Performance_Brasil/blob/main/Arquitetura_Stack_Ferramentas.png?raw=true)
 - Escolha Stack de Ferramentas: será usado o ambiente da AWS para desenvolvimento da arquitetura, então toda a estrutura do projeto será usada no ambiente provido pela Amazon. Segue relação de ferramentas que serão usadas:
   - **_Data Ingest_**: para enviar os dados ao *Batch Layer* será usado o AWS Glue; para o *Speed Layer*, AWS Kinesis.
   - **_Batch Layer_**: neste acesso, usaremos a metodologia *Medallion Architecture*, construída a parte do AWS S3 e, para cada etapa da transformação, será usado o AWS Glue.
