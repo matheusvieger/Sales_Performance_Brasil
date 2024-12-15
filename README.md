@@ -161,4 +161,14 @@ Todo o projeto será dividido em *sprints* com datas de duração variável de a
     - **Concluído**: quando uma atividade for finalizada, o *card* será enviado a esta etapa para entenrdermos o que já está finalizado, a agilidade da entrega e quando podemos iniciar uma nova etapa.
 
 - Modelagem das Camadas de Dados: esta tarefa foi realizada pelo Gustavo e Fábio. Os participantes fizeram o desenvolvimento do projeto em sistema AWS. Abaixo, algumas imagens do projeto realizado dentro do ambimente:
+    - Datalake:
+![Datalake](https://github.com/matheusvieger/Sales_Performance_Brasil/blob/main/Modelagem/DL.jpg)
 
+    - Camada Bronze:
+![Bronze](https://github.com/matheusvieger/Sales_Performance_Brasil/blob/main/Modelagem/Brz.jpg)
+
+    - Camada Silver:
+![Silver](https://github.com/matheusvieger/Sales_Performance_Brasil/blob/main/Modelagem/Slv.jpg)
+
+    - Camada Gold:
+![Gold](https://github.com/matheusvieger/Sales_Performance_Brasil/blob/main/Modelagem/Gld.jpg)
