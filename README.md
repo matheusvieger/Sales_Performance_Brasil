@@ -146,3 +146,19 @@ Todo o projeto será dividido em *sprints* com datas de duração variável de a
     - Monitoramento da Arquitetura: Amazon CloudWatch.
     - Controle de Acessos: AWS Secrets Manager.
     - Versionamento, documentação e gerenciamento do projeto: Github.
+
+## Sprint 2
+
+**Duração**: 7 dias
+
+**Objetivos**:
+- Criação de Kanban (Tarefas e Responsáveis): para realização desta estrutura, responsabilizada pela Angélica, foi criado uma base de card e tarefas, com prazos, na plataforma do Trello com as seguintes listas de tarefas:
+    - **Backlog**: todas as atividades a serem realizadas a pedido do cliente;
+    - **A fazer**: as atividades que ainda não foram iniciadas, com a marcação do seu responsável;
+    - **Em andamento**: quando o(s) responsável(is) já iniciaram a tratativa;
+    - **Revisão do código**: quando uma tarefa exige a criação de um código, como uma ETL, haverá sempre dois responsáveis para que um sempre valide o código criado. Esta etapa mostra que o segundo responsável estará validando a estrutura criada pelo colega;
+    - **Fase de Teste**: após a revisão do código, ele deve ser testado e validado para entendermos sua usabilidade, facilidade e eficiência. Esta etapa designa este momento.
+    - **Concluído**: quando uma atividade for finalizada, o *card* será enviado a esta etapa para entenrdermos o que já está finalizado, a agilidade da entrega e quando podemos iniciar uma nova etapa.
+
+- Modelagem das Camadas de Dados: esta tarefa foi realizada pelo Gustavo e Fábio. Os participantes fizeram o desenvolvimento do projeto em sistema AWS. Abaixo, algumas imagens do projeto realizado dentro do ambimente:
+
