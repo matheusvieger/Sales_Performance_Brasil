@@ -172,3 +172,162 @@ Todo o projeto será dividido em *sprints* com datas de duração variável de a
 
     - Camada Gold:
 ![Gold](https://github.com/matheusvieger/Sales_Performance_Brasil/blob/main/Modelagem/Gld.jpg)
+
+
+## Sprint 3
+
+**Duração**: 7 dias
+
+# MVP - Sales Performance Brasil
+
+## Objetivo
+Desenvolver uma arquitetura de dados em nuvem utilizando AWS S3 e AWS Glue, focada nas camadas Bronze, Silver e Gold, para processar e analisar os dados da Olist.
+
+## Estrutura do Projeto
+
+### 1. Camada Bronze
+**Objetivo:** Armazenar dados brutos exatamente como são recebidos.
+
+- **Ingestão de Dados:**
+  - AWS Glue para ingestão em lote.
+- **Armazenamento:**
+  - Dados brutos armazenados no bucket S3 Bronze.
+
+### 2. Camada Silver
+**Objetivo:** Limpar e transformar os dados brutos para um formato mais estruturado.
+
+- **Transformação:**
+  - Jobs do AWS Glue para limpar e transformar os dados da camada Bronze.
+- **Armazenamento:**
+  - Dados transformados armazenados no bucket S3 Silver.
+
+### 3. Camada Gold
+**Objetivo:** Otimizar os dados para análise, agregando e enriquecendo as informações.
+
+- **Transformação Avançada:**
+  - Jobs do AWS Glue para agregar e enriquecer os dados da camada Silver.
+- **Armazenamento:**
+  - Dados otimizados armazenados no bucket S3 Gold.
+
+
+  ## Planner MVP
+
+### 01/12/2024: Configuração Inicial e Ingestão de Dados
+**Responsáveis:** Gustavo e Fabio
+
+- **Configuração do Ambiente AWS:**
+  - Criação de buckets S3 para as camadas Bronze, Silver e Gold.
+
+- **Ingestão de Dados Brutos (Camada Bronze):**
+  - Configuração de jobs no AWS Glue para ingestão em lote.
+  - Armazenamento dos dados brutos no bucket S3 Bronze.
+
+### 02/12/2024: Transformação de Dados (Camada Silver)
+**Responsáveis:** Gustavo e Fabio
+
+- **Transformação Inicial:**
+  - Criação de jobs no AWS Glue para limpar e transformar os dados da camada Bronze.
+  - Remoção de duplicatas e correção de erros.
+  - Armazenamento dos dados transformados no bucket S3 Silver.
+
+- **Validação dos Dados Silver:**
+  - Verificação da integridade e qualidade dos dados transformados.
+  - Ajustes necessários nos jobs do AWS Glue.
+
+### 03/12/2024: Otimização e Enriquecimento de Dados (Camada Gold)
+**Responsáveis:** Gustavo e Fabio
+
+- **Transformação Avançada:**
+  - Criação de jobs no AWS Glue para agregar e enriquecer os dados da camada Silver.
+  - Realização de cálculos e agregações.
+  - Armazenamento dos dados otimizados no bucket S3 Gold.
+
+- **Validação dos Dados Gold:**
+  - Verificação da integridade e qualidade dos dados otimizados.
+  - Ajustes necessários nos jobs do AWS Glue.
+
+
+## Sprint 4 e 5
+
+**Duração**: 2 dias
+
+## 1. Análise e Design
+- **Análise de Requisitos:** Identificar dados e objetivos de cada camada.
+- **Desenho da Arquitetura:** Criar diagramas de fluxo de dados e definir estrutura dos buckets S3.
+- **Modelagem Wide Table:** Planejar a estrutura da Wide Table para consolidar dados de várias fontes.
+
+## 2. Configuração
+- **Configuração do Ambiente AWS:**
+  - Criar buckets S3 para Bronze, Silver e Gold.
+  - Configurar AWS Glue.
+- **Segurança e Governança:**
+  - Implementar políticas de segurança nos buckets S3.
+
+
+## 3. Desenvolvimento
+- **Jobs do AWS Glue:**
+  - **Camada Bronze:** Ingestão de dados brutos e armazenamento no bucket S3 Bronze.
+  - **Camada Silver:** Limpeza e transformação dos dados da camada Bronze e armazenamento no bucket S3 Silver.
+  - **Camada Gold:** Agregação e enriquecimento dos dados da camada Silver e armazenamento no bucket S3 Gold.
+- **Wide Table:**
+  - Consolidar dados de várias tabelas em uma Wide Table na camada Gold.
+- **Batch Layer:**
+  - Implementar a Batch Layer usando AWS Glue para processar grandes volumes de dados periodicamente.
+- **Scripts de Transformação:** Escrever e testar scripts em PySpark.
+
+## 4. Teste e Validação
+- **Teste de Ingestão:** Verificar armazenamento correto na camada Bronze.
+- **Teste de Transformação:** Validar limpeza e transformação na camada Silver e otimização na camada Gold.
+- **Validação da Wide Table:** Garantir que a Wide Table consolida corretamente os dados.
+- **Validação da Batch Layer:** Testar o processamento em lote para garantir eficiência.
+- **Validação de Qualidade:** Verificar integridade e qualidade dos dados.
+
+## Ferramentas Utilizadas
+- **AWS Glue:** Ingestão e transformação.
+- **AWS S3:** Armazenamento.
+
+
+### Script AWS Glue para Criar a Wide Table
+
+```python
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+
+args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# Carregar dados da camada Silver
+customers = glueContext.create_dynamic_frame.from_catalog(database = "olist_db", table_name = "silver_customers")
+orders = glueContext.create_dynamic_frame.from_catalog(database = "olist_db", table_name = "silver_orders")
+products = glueContext.create_dynamic_frame.from_catalog(database = "olist_db", table_name = "silver_products")
+sellers = glueContext.create_dynamic_frame.from_catalog(database = "olist_db", table_name = "silver_sellers")
+payments = glueContext.create_dynamic_frame.from_catalog(database = "olist_db", table_name = "silver_payments")
+reviews = glueContext.create_dynamic_frame.from_catalog(database = "olist_db", table_name = "silver_reviews")
+
+# Unir dados para criar a Wide Table
+wide_table = Join.apply(orders, customers, 'customer_id', 'customer_id')
+wide_table = Join.apply(wide_table, products, 'product_id', 'product_id')
+wide_table = Join.apply(wide_table, sellers, 'seller_id', 'seller_id')
+wide_table = Join.apply(wide_table, payments, 'order_id', 'order_id')
+wide_table = Join.apply(wide_table, reviews, 'order_id', 'order_id')
+
+# Salvar a Wide Table na camada Gold
+glueContext.write_dynamic_frame.from_options(frame = wide_table, connection_type = "s3", connection_options = {"path": "s3://bucket-gold/wide_table/"}, format = "parquet")
+
+job.commit()
+
+
+
+
+
+
+
+
